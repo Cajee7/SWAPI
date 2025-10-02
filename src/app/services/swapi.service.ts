@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IFilm } from '../models/Film';
+import { IFilmResponse } from '../models/FilmResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class SwapiService {
 
   constructor(private _http: HttpClient) { }
 
-  public getAllFilms(): Observable<IFilm[]> {
-    return this._http.get<IFilm[]>(`${this._baseUrl}/films`);
+  public getAllFilms(): Observable<IFilmResponse> {
+    return this._http.get<IFilmResponse>(`${this._baseUrl}/films`);
   }
 }
