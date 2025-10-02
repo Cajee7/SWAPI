@@ -1,0 +1,65 @@
+<div class="container">
+  <h1>Star Wars Films</h1>
+
+  <div *ngIf="loading">
+    <nb-spinner size="giant" status="primary"></nb-spinner>
+  </div>
+
+  <div *ngIf="!loading">
+    <div class="row">
+      <div class="col-md-6" *ngFor="let film of allFilmsData">
+        <nb-flip-card [showToggleButton]="true">
+          <nb-card-front>
+            <nb-card status="success">
+              <nb-card-header>
+                Episode {{ film.episode_id }}: {{ film.title }}
+                <br />
+                Director: {{ film.director }}
+              </nb-card-header>
+              <nb-card-body>
+                <p><strong>Opening Crawl:</strong></p>
+                <p>{{ film.opening_crawl }}</p>
+                <p><strong>Characters:</strong> {{ film.characters.length }}</p>
+                <p>
+                  <strong>Url: </strong
+                  ><a [href]="film.url" target="_blank"> Url To Movie</a>
+                </p>
+              </nb-card-body>
+              <nb-card-footer>
+                <strong>Release Date:</strong>
+                {{ film.release_date | date : "mediumDate" }}
+              </nb-card-footer>
+            </nb-card>
+          </nb-card-front>
+          <nb-card-back>
+            <nb-card status="danger">
+              <nb-card-header>
+                Episode {{ film.episode_id }}: {{ film.title }}
+                <br />
+                Producer: {{ film.producer }}
+              </nb-card-header>
+              <nb-card-body>
+                <p><strong>Species:</strong> {{ film.species?.length || 0 }}</p>
+                <p>
+                  <strong>StarShips:</strong> {{ film.starships?.length || 0 }}
+                </p>
+                <p>
+                  <strong>Vehicles:</strong> {{ film.vehicles?.length || 0 }}
+                </p>
+                <p><strong>Planets:</strong> {{ film.planets?.length || 0 }}</p>
+                <br />
+              </nb-card-body>
+              <nb-card-footer>
+                <strong>Created:</strong>
+                {{ film.created | date : "mediumDate" }}
+                <br />
+                <strong>Edited:</strong> {{ film.edited | date : "mediumDate" }}
+              </nb-card-footer>
+            </nb-card>
+          </nb-card-back>
+        </nb-flip-card>
+      </div>
+    </div>
+    <p>Found {{ allFilmsData.length }} films</p>
+  </div>
+</div>
