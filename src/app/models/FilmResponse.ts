@@ -1,8 +1,7 @@
-import { IFilm } from "./Film";
 
-export interface IFilmResponse {
+export interface IFilmResponse<T> {
     count: number;
     next: string;
     previous: string;
-    results: IFilm[];
+    results: T[];
 }

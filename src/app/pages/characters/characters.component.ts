@@ -1,29 +1,27 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ICharacter } from 'src/app/models/Character';
 import { SwapiService } from 'src/app/services/swapi.service';
-import { SnackbarService } from 'src/app/services/snackbar.service';
 import { ToastService } from 'src/app/services/toast.service';
-import { IFilm } from 'src/app/models/Film';
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  selector: 'app-characters',
+  templateUrl: './characters.component.html',
+  styleUrls: ['./characters.component.scss']
 })
-export class HomePageComponent implements OnInit, OnDestroy {
+export class CharactersComponent implements OnInit, OnDestroy {
   private _destroy$: Subject<void> = new Subject<void>();
   public loading: boolean = true;
-  public allFilmsData: IFilm[] = [];
+  public characterData: ICharacter[] = [];
 
   constructor(
     private _swapiService: SwapiService,
-    private _snackBarService: SnackbarService,
     private _toastService: ToastService
   ) { }
 
   ngOnInit(): void {
-    this.getAllFilms();
+    this.getAllCharacters();
   }
 
   ngOnDestroy(): void {
@@ -31,21 +29,22 @@ export class HomePageComponent implements OnInit, OnDestroy {
     this._destroy$.complete();
   }
 
-  private getAllFilms(): void {
-    this._swapiService.getAllFilms()
+  private getAllCharacters(): void {
+    this._swapiService.getAllCharacters()
       .pipe(takeUntil(this._destroy$))
       .subscribe({
         next: (res) => {
-          this.allFilmsData = res.results.sort((a, b) => a.episode_id - b.episode_id);
+          this.characterData = res.results;
+          console.log(this.characterData)
         },
         complete: () => {
-          this._toastService.showSuccess("Successfully loaded Film Data", "");
+          this._toastService.showSuccess("Successfully loaded Character Data", "");
           this.loading = false;
         },
         error: () => {
-          this._toastService.showError("Error Occured", "Could not load film data, please try again");
+          this._toastService.showError("Error Occured", "Could not load Character data, please try again");
           this.loading = false;
         }
-      });
+      })
   }
 }
