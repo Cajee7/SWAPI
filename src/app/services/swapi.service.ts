@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { IFilmResponse } from '../models/FilmResponse';
 import { IFilm } from '../models/Film';
 import { ICharacter } from '../models/Character';
+import { IStarships } from '../models/Starships';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,9 @@ export class SwapiService {
 
   public getAllCharacters(): Observable<IFilmResponse<ICharacter>> {
     return this._http.get<IFilmResponse<ICharacter>>(`${this._baseUrl}/people`)
+  }
+
+  public getAllStartships(): Observable<IFilmResponse<IStarships>> {
+    return this._http.get<IFilmResponse<IStarships>>(`${this._baseUrl}/starships`)
   }
 }

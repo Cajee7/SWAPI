@@ -8,15 +8,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
-import { NbThemeModule, NbLayoutModule, NbToastrModule, NbCardModule, NbSpinnerModule, NbSidebarModule, NbIconModule, NbMenuModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbToastrModule, NbCardModule, NbSpinnerModule, NbIconModule, NbMenuModule, NbSidebarModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { StarshipsComponent } from './pages/starships/starships.component';
 import { CharactersComponent } from './pages/characters/characters.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    CharactersComponent
+    CharactersComponent,
+    StarshipsComponent
   ],
   imports: [
     BrowserModule,
@@ -30,10 +32,11 @@ import { CharactersComponent } from './pages/characters/characters.component';
     NbSidebarModule.forRoot(),
     NbMenuModule.forRoot(),
     NbLayoutModule,
+    NbMenuModule,
+    NbSidebarModule,
     NbEvaIconsModule,
     NbCardModule,
     NbSpinnerModule,
-    NbSidebarModule,
     NbIconModule
   ],
   providers: [],

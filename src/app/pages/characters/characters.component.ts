@@ -35,7 +35,6 @@ export class CharactersComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res) => {
           this.characterData = res.results;
-          console.log(this.characterData)
         },
         complete: () => {
           this._toastService.showSuccess("Successfully loaded Character Data", "");
