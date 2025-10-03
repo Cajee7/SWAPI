@@ -7,7 +7,7 @@
 
   <div *ngIf="!loading">
     <div class="row">
-      <div class="col-md-6" *ngFor="let film of allFilmsData.results">
+      <div class="col-md-6" *ngFor="let film of allFilmsData">
         <nb-flip-card [showToggleButton]="true">
           <nb-card-front>
             <nb-card status="success">
@@ -21,12 +21,13 @@
                 <p>{{ film.opening_crawl }}</p>
                 <p><strong>Characters:</strong> {{ film.characters.length }}</p>
                 <p>
-                  <strong>Url: </strong>
-                  <a [href]="film.url" target="_blank"> Url To Movie</a>
+                  <strong>Url: </strong
+                  ><a [href]="film.url" target="_blank"> Url To Movie</a>
                 </p>
               </nb-card-body>
               <nb-card-footer>
-                Release Date: {{ film.release_date | date : "mediumDate" }}
+                <strong>Release Date:</strong>
+                {{ film.release_date | date : "mediumDate" }}
               </nb-card-footer>
             </nb-card>
           </nb-card-front>
@@ -38,22 +39,27 @@
                 Producer: {{ film.producer }}
               </nb-card-header>
               <nb-card-body>
-                <p><strong>Species:</strong> {{ film.species.length }}</p>
-                <p><strong>StarShips:</strong> {{ film.starships.length }}</p>
-                <p><strong>Vehicles:</strong> {{ film.vehicles.length }}</p>
-                <p><strong>Planets:</strong> {{ film.planets.length }}</p>
+                <p><strong>Species:</strong> {{ film.species?.length || 0 }}</p>
+                <p>
+                  <strong>StarShips:</strong> {{ film.starships?.length || 0 }}
+                </p>
+                <p>
+                  <strong>Vehicles:</strong> {{ film.vehicles?.length || 0 }}
+                </p>
+                <p><strong>Planets:</strong> {{ film.planets?.length || 0 }}</p>
                 <br />
               </nb-card-body>
               <nb-card-footer>
-                Created: {{ film.created | date : "mediumDate" }}
+                <strong>Created:</strong>
+                {{ film.created | date : "mediumDate" }}
                 <br />
-                Edited: {{ film.edited | date : "mediumDate" }}
+                <strong>Edited:</strong> {{ film.edited | date : "mediumDate" }}
               </nb-card-footer>
             </nb-card>
           </nb-card-back>
         </nb-flip-card>
       </div>
     </div>
-    <p>Found {{ allFilmsData.count }} films</p>
+    <p>Found {{ allFilmsData.length }} films</p>
   </div>
 </div>

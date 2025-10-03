@@ -8,14 +8,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
-import { NbThemeModule, NbLayoutModule, NbToastrModule, NbCardModule, NbSpinnerModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbToastrModule, NbCardModule, NbSpinnerModule, NbSidebarModule, NbIconModule, NbMenuModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { config } from 'process';
+import { CharactersComponent } from './pages/characters/characters.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent
+    HomePageComponent,
+    CharactersComponent
   ],
   imports: [
     BrowserModule,
@@ -25,11 +26,15 @@ import { config } from 'process';
     MatSnackBarModule,
     MatCardModule,
     NbThemeModule.forRoot({ name: 'default' }),
-    NbToastrModule.forRoot(config),
+    NbToastrModule.forRoot(),
+    NbSidebarModule.forRoot(),
+    NbMenuModule.forRoot(),
     NbLayoutModule,
     NbEvaIconsModule,
     NbCardModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    NbSidebarModule,
+    NbIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

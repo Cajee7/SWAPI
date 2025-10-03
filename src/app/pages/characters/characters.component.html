@@ -1,0 +1,69 @@
+<div class="container">
+  <h1>Star Wars Characters</h1>
+
+  <div *ngIf="loading">
+    <nb-spinner size="giant" status="primary"></nb-spinner>
+  </div>
+
+  <div *ngIf="!loading">
+    <div class="row">
+      <div class="col-md-6" *ngFor="let character of characterData">
+        <nb-flip-card [showToggleButton]="true">
+          <nb-card-front>
+            <nb-card status="info">
+              <nb-card-header>
+                {{ character.name }}
+                <br />
+                {{ character.gender | titlecase }}
+              </nb-card-header>
+              <nb-card-body>
+                <p><strong>Birth Year:</strong> {{ character.birth_year }}</p>
+                <p><strong>Home World:</strong> {{ character.homeworld }}</p>
+                <p><strong>Height:</strong> {{ character.height }} cm</p>
+                <p><strong>Mass:</strong> {{ character.mass }} kg</p>
+                <p>
+                  <strong>Films:</strong> {{ character.films?.length || 0 }}
+                </p>
+                <br />
+              </nb-card-body>
+              <nb-card-footer>
+                <p>
+                  <strong>Date Created:</strong>
+                  {{ character.created | date : "mediumDate" }}
+                </p>
+              </nb-card-footer>
+            </nb-card>
+          </nb-card-front>
+          <nb-card-back>
+            <nb-card status="warning">
+              <nb-card-header> {{ character.name }}</nb-card-header>
+              <nb-card-body>
+                <p><strong>Eye Color:</strong> {{ character.eye_color }}</p>
+                <p><strong>Hair Color:</strong> {{ character.hair_color }}</p>
+                <p><strong>Skin Color:</strong> {{ character.skin_color }}</p>
+                <p>
+                  <strong>Species:</strong> {{ character.species?.length || 0 }}
+                </p>
+                <p>
+                  <strong>Starships:</strong>
+                  {{ character.starships?.length || 0 }}
+                </p>
+                <p>
+                  <strong>Vehicles:</strong>
+                  {{ character.vehicles?.length || 0 }}
+                </p>
+              </nb-card-body>
+              <nb-card-footer>
+                <p>
+                  <strong>Date Edited:</strong>
+                  {{ character.edited | date : "mediumDate" }}
+                </p>
+              </nb-card-footer>
+            </nb-card>
+          </nb-card-back>
+        </nb-flip-card>
+      </div>
+    </div>
+    <p>Found {{ characterData.length }} Characters</p>
+  </div>
+</div>
