@@ -11,5 +11,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Characters',
         icon: 'people-outline',
         link: '/characters',
+    },
+    {
+        title: 'Starships',
+        icon: 'car-outline',
+        link: '/starships',
     }
 ]

@@ -10,7 +10,7 @@
       <div class="col-md-6" *ngFor="let film of allFilmsData">
         <nb-flip-card [showToggleButton]="true">
           <nb-card-front>
-            <nb-card status="success">
+            <nb-card status="info">
               <nb-card-header>
                 Episode {{ film.episode_id }}: {{ film.title }}
                 <br />
@@ -32,7 +32,7 @@
             </nb-card>
           </nb-card-front>
           <nb-card-back>
-            <nb-card status="danger">
+            <nb-card status="info">
               <nb-card-header>
                 Episode {{ film.episode_id }}: {{ film.title }}
                 <br />

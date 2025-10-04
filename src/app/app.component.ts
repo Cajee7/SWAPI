@@ -10,7 +10,8 @@ import { MENU_ITEMS } from './models/MenuItems';
 })
 export class AppComponent implements OnInit {
   title = 'SWAPI';
-  menu = MENU_ITEMS
+  menu = MENU_ITEMS;
+  year = new Date().getFullYear();
 
   constructor(
     private _router: Router,
