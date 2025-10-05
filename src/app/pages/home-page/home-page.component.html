@@ -49,15 +49,16 @@
               <nb-card-body>
                 <p><strong>Species:</strong> {{ film.species?.length || 0 }}</p>
                 <p>
-                  <strong>StarShips:</strong>
-                  <span
-                    class="chip"
-                    *ngFor="let ship of getName(film.starships, 'starship')"
-                    >{{ ship }}</span
-                  >
-                </p>
-                <p>
                   <strong>Vehicles:</strong> {{ film.vehicles?.length || 0 }}
+                </p>
+                <p *ngIf="getName(film.starships, 'starship') as starships">
+                  <strong>StarShips:</strong>
+                  <span class="chip" *ngFor="let ship of starships">{{
+                    ship
+                  }}</span>
+                  <span *ngIf="starships.length === 0">
+                    {{ film.starships.length }}</span
+                  >
                 </p>
                 <p>
                   <strong>Planets:</strong>
