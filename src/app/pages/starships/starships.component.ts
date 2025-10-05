@@ -36,7 +36,6 @@ export class StarshipsComponent implements OnInit, OnDestroy {
   }
 
   private getAllStarships(): void {
-    console.log(this.currentPage)
     this._swapiService.getAllStartships(this.currentPage)
       .pipe(takeUntil(this._destroy$))
       .subscribe({
