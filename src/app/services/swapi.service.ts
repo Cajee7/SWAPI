@@ -17,47 +17,57 @@ export class SwapiService {
   constructor(private _http: HttpClient) { }
 
   private getFromStorage(item: string) {
+    //get cahce item from local storage
     const cache = localStorage.getItem(item);
 
     if (cache) {
+      //parse it into js object
       const parsed = JSON.parse(cache);
 
+      //check if cache is still valid
       if (Date.now() - parsed.timestamp < this.cacheTime) {
-        console.log('Cache for:', item)
         return parsed.data;
       }
     }
+
+    //remove if no cache or cache expired
     localStorage.removeItem(item);
   }
 
   private saveToStorage(item: string, data: any) {
+    //create object
     const cacheData = { data, timestamp: Date.now() };
 
+    //save that object to local storage with key
     localStorage.setItem(item, JSON.stringify(cacheData));
-    console.log('Cached:', item)
   }
 
   private getCache(key: string, url: string) {
+    //get data based on key
     const cachedData = this.getFromStorage(key);
 
-    //if cached get from cache
+    //null check 
     if (cachedData) {
-      return of(cachedData);
+      return of(cachedData); //create observable to emit value becase we need it to behave like observale
     }
 
     //if not cached, make api call
     return this._http.get(url).pipe(tap((data) => this.saveToStorage(key, data)));
   }
 
-  public getAllFilms(): Observable<IFilmResponse<IFilm>> {
-    return this.getCache('Films', `${this._baseUrl}/films`);
+  public getAllFilms(page: number = 1): Observable<IFilmResponse<IFilm>> {
+    return this.getCache(`Films_Page_${page}`, `${this._baseUrl}/films/?page=${page}`);
   }
 
-  public getAllCharacters(): Observable<IFilmResponse<ICharacter>> {
-    return this.getCache('Characters', `${this._baseUrl}/people`);
+  public getAllCharacters(page: number = 1): Observable<IFilmResponse<ICharacter>> {
+    return this.getCache(`Characters_Page_${page}`, `${this._baseUrl}/people/?page=${page}`);
   }
 
-  public getAllStartships(): Observable<IFilmResponse<IStarships>> {
-    return this.getCache('Starships', `${this._baseUrl}/starships`);
+  public getAllStartships(page: number = 1): Observable<IFilmResponse<IStarships>> {
+    return this.getCache(`Starships_Page_${page}`, `${this._baseUrl}/starships/?page=${page}`);
+  }
+
+  public getAllPlanets(page: number = 1): Observable<IFilmResponse<{ url: string, name: string }>> {
+    return this.getCache(`Plants_Page_${page}`, `${this._baseUrl}/planets/?page=${page}`)
   }
 }
