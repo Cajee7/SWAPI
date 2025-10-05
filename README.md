@@ -2,26 +2,56 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.4.
 
-## Development server
+An Angular application that fetches and displays data from the Star Wars API (SWAPI). It includes caching and clean api services for films, characters and starships.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Setup Instructions:
 
-## Code scaffolding
+1. Clone the SWAPI repo 
+  Enter the following command in your terminal: 
+    git clone https://github.com/cajee7/swapi.git
+  Thereafter navigate to the folder:
+    cd swapi
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2. Install Dependencies
+  Once opened, install the dependencies by running the following command:
+    npm install 
 
-## Build
+3. Run development server
+  Once all the dependencies are installed, build and run the application with the following      command:
+    ng serve -o
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+   This should launch in the browser automatically, if not, navigate to: http://localhost:4200
 
-## Running unit tests
+5. OPTIONAL: Run in Docker
+   This project does have a docker file, so if you want to containerize the app and run it        with docker, use the following commands:
+     docker build -t swapi-app
+     docker run -d -p 8080:80 swapi-app
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+   Thereafter open: http://localhost:8080
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Archtecture:
 
-## Further help
+This frontend application is built using the modular angualr framework that seperates presentation, logic and data access layers. Components handle the user interface and interactions while the services connect to the api and cache the data. The models or interfaces define the structure of the API responses, ensuring type safety and consistency. The application makes use of local storage for shorrt term caching to minimize redundant network calls and improve performance. The app is also containerized with Docker for lightweight and scalable deployment.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+Design Decisions:
+
+Modular Angular Structure: The app is organized into components, services and models to promote seperation, reusability, and a losely coupled app.
+
+Local Storage Caching: Implemented a 5 minute cache to prevent repetitive and redundant api calls.
+
+Models or Interfaces: Used strong typing to ensure data consistency.
+
+Docker Containerization: To ensure scalability and portable hosting.
+
+Clean UI: Designed with familiar UI to give users familiar look and feel of application.
+
+Auto Deploy: Implemented github actions to automaticall deploy the master branch when new changes have been pushed on it.
+
+
+Future Improvements/Still to do:
+-Rate limiting
+-Pagination
+-Endpoint Authentication
+-Visual Appeal
