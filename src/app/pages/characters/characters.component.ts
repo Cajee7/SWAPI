@@ -45,7 +45,6 @@ export class CharactersComponent implements OnInit, OnDestroy {
           this.characterData = res.results;
           this.totalItems = res.count;
           this.totalPages = Math.ceil(this.totalItems / 10);
-          console.log(this.characterData)
         },
         complete: () => {
           this.loading = false;
@@ -76,7 +75,6 @@ export class CharactersComponent implements OnInit, OnDestroy {
           res.starships.results.forEach(x => {
             this.starShipMap.set(x.url, x.name)
           })
-          console.log(res.starships)
         },
         complete: () => {
           this.loading = false;

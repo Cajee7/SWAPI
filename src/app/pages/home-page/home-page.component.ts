@@ -64,8 +64,6 @@ export class HomePageComponent implements OnInit, OnDestroy {
     }).pipe(takeUntil(this._destroy$))
       .subscribe({
         next: (res) => {
-          console.log(res.characters)
-          console.log(res.characters)
           res.characters.results.forEach(x => {
             this.characterMap.set(x.url, x.name);
           });
@@ -94,7 +92,6 @@ export class HomePageComponent implements OnInit, OnDestroy {
         return data.map(url => this.characterMap.get(url)).filter(name => name !== undefined);
       }
       case 'starship': {
-        console.log("In here")
         return data.map(url => this.starshipMap.get(url)).filter(name => name !== undefined);
       }
       case 'planet': {
