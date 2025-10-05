@@ -25,21 +25,26 @@
                 </p>
                 <p>
                   <strong>Cost in Credits:</strong>
-                  {{ starship.cost_in_credits || 0 }} credits
+                  {{ starship.cost_in_credits || 0 }} Credits
                 </p>
                 <p>
                   <strong>Cargo Capacity:</strong>
-                  {{ starship.cargo_capacity | number }}
+                  {{ starship.cargo_capacity || 0 }}
                 </p>
                 <p>
                   <strong>Max Athmosphering Speed:</strong>
                   {{ starship.max_atmosphering_speed }} (m/s)
                 </p>
-                <p><strong>Url:</strong> {{ starship.url }}</p>
+                <p>
+                  <strong>Url To Ship: </strong
+                  ><a [href]="starship.url" target="_blank">
+                    {{ starship.name | titlecase }}</a
+                  >
+                </p>
               </nb-card-body>
               <nb-card-footer>
                 <p>
-                  <strong>Created:</strong>
+                  <strong>Date Created:</strong>
                   {{ starship.created | date : "mediumDate" }}
                 </p>
               </nb-card-footer>
@@ -51,7 +56,7 @@
                 {{ starship.name }}
               </nb-card-header>
               <nb-card-body>
-                <p><strong>Length:</strong> {{ starship.length }}</p>
+                <p><strong>Length:</strong> {{ starship.length }} m</p>
                 <p><strong>Crew:</strong> {{ starship.crew }}</p>
                 <p>
                   <strong>Passengers:</strong> {{ starship.passengers || 0 }}
@@ -61,15 +66,19 @@
                 </p>
                 <p><strong>Consumables:</strong> {{ starship.consumables }}</p>
                 <p>
-                  <strong>Films:</strong> {{ getFilmTitles(starship.films) }}
+                  <strong>Films:</strong>
+                  <span
+                    class="chip"
+                    *ngFor="let name of getName(starship.films)"
+                  >
+                    {{ name }}
+                  </span>
                 </p>
-                <p>
-                  <strong>Pilots:</strong> {{ starship.pilots?.length || 0 }}
-                </p>
+                <p><strong>Pilots:</strong> {{ starship.pilots.length }}</p>
               </nb-card-body>
               <nb-card-footer>
                 <p>
-                  <strong>Edited:</strong>
+                  <strong>Date Edited:</strong>
                   {{ starship.edited | date : "mediumDate" }}
                 </p>
               </nb-card-footer>
@@ -77,7 +86,18 @@
           </nb-card-back>
         </nb-flip-card>
       </div>
-      <p>Found {{ starshipsData.length }} Starships</p>
+      <p>Found {{ totalItems }} Starships</p>
+      <div class="pagination-container">
+        <button (click)="previousPage()" [disabled]="currentPage === 1">
+          Previous
+        </button>
+
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+          Next
+        </button>
+      </div>
     </div>
   </div>
 </div>

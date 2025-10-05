@@ -18,13 +18,26 @@
               </nb-card-header>
               <nb-card-body>
                 <p><strong>Birth Year:</strong> {{ character.birth_year }}</p>
-                <p><strong>Home World:</strong> {{ character.homeworld }}</p>
-                <p><strong>Height:</strong> {{ character.height }} cm</p>
-                <p><strong>Mass:</strong> {{ character.mass }} kg</p>
                 <p>
-                  <strong>Films:</strong> {{ character.films?.length || 0 }}
+                  <strong>Home World:</strong>
+                  {{ getName([character.homeworld], "planet") }}
                 </p>
-                <br />
+                <p><strong>Height:</strong> {{ character.height }} cm</p>
+                <p>
+                  <strong>Films:</strong>
+                  <span
+                    class="chip"
+                    *ngFor="let name of getName(character.films, 'film')"
+                  >
+                    {{ name }}
+                  </span>
+                </p>
+                <p>
+                  <strong>Url To Character: </strong
+                  ><a [href]="character.url" target="_blank">
+                    {{ character.name | titlecase }}</a
+                  >
+                </p>
               </nb-card-body>
               <nb-card-footer>
                 <p>
@@ -38,20 +51,30 @@
             <nb-card status="warning">
               <nb-card-header> {{ character.name }}</nb-card-header>
               <nb-card-body>
-                <p><strong>Eye Color:</strong> {{ character.eye_color }}</p>
-                <p><strong>Hair Color:</strong> {{ character.hair_color }}</p>
-                <p><strong>Skin Color:</strong> {{ character.skin_color }}</p>
                 <p>
-                  <strong>Species:</strong> {{ character.species?.length || 0 }}
+                  <strong>Eye Color:</strong>
+                  {{ character.eye_color | titlecase }}
                 </p>
+                <p>
+                  <strong>Hair Color:</strong>
+                  {{ character.hair_color | titlecase }}
+                </p>
+                <p>
+                  <strong>Skin Color:</strong>
+                  {{ character.skin_color | titlecase }}
+                </p>
+                <p><strong>Mass:</strong> {{ character.mass }} kg</p>
                 <p>
                   <strong>Starships:</strong>
-                  {{ character.starships?.length || 0 }}
+                  <span
+                    class="chip"
+                    *ngFor="
+                      let ship of getName(character.starships, 'starship')
+                    "
+                    >{{ ship }}</span
+                  >
                 </p>
-                <p>
-                  <strong>Vehicles:</strong>
-                  {{ character.vehicles?.length || 0 }}
-                </p>
+                <br />
               </nb-card-body>
               <nb-card-footer>
                 <p>
@@ -64,6 +87,17 @@
         </nb-flip-card>
       </div>
     </div>
-    <p>Found {{ characterData.length }} Characters</p>
+    <p>Found {{ totalItems }} Characters</p>
+    <div class="pagination-container">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">
+        Previous
+      </button>
+
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+        Next
+      </button>
+    </div>
   </div>
 </div>
