@@ -1,0 +1,103 @@
+<div class="container">
+  <h1>Star Wars Starships</h1>
+
+  <div *ngIf="loading">
+    <nb-spinner size="giant" status="primary"></nb-spinner>
+  </div>
+
+  <div *ngIf="!loading">
+    <div class="row">
+      <div *ngFor="let starship of starshipsData">
+        <nb-flip-card [showToggleButton]="true">
+          <nb-card-front>
+            <nb-card status="danger">
+              <nb-card-header>
+                {{ starship.name | titlecase }}
+              </nb-card-header>
+              <nb-card-body>
+                <p><strong>Model:</strong> {{ starship.model | titlecase }}</p>
+                <p>
+                  <strong>Starship Class:</strong>
+                  {{ starship.starship_class | titlecase }}
+                </p>
+                <p>
+                  <strong>Manufacturer:</strong> {{ starship.manufacturer }}
+                </p>
+                <p>
+                  <strong>Cost in Credits:</strong>
+                  {{ starship.cost_in_credits || 0 }} Credits
+                </p>
+                <p>
+                  <strong>Cargo Capacity:</strong>
+                  {{ starship.cargo_capacity || 0 }}
+                </p>
+                <p>
+                  <strong>Max Athmosphering Speed:</strong>
+                  {{ starship.max_atmosphering_speed }} (m/s)
+                </p>
+                <p>
+                  <strong>Url To Ship: </strong
+                  ><a [href]="starship.url" target="_blank">
+                    {{ starship.name | titlecase }}</a
+                  >
+                </p>
+              </nb-card-body>
+              <nb-card-footer>
+                <p>
+                  <strong>Date Created:</strong>
+                  {{ starship.created | date : "mediumDate" }}
+                </p>
+              </nb-card-footer>
+            </nb-card>
+          </nb-card-front>
+          <nb-card-back>
+            <nb-card status="danger">
+              <nb-card-header>
+                {{ starship.name }}
+              </nb-card-header>
+              <nb-card-body>
+                <p><strong>Length:</strong> {{ starship.length }} m</p>
+                <p><strong>Crew:</strong> {{ starship.crew }}</p>
+                <p>
+                  <strong>Passengers:</strong> {{ starship.passengers || 0 }}
+                </p>
+                <p>
+                  <strong>Hyperdrive Rating/MGLT:</strong> {{ starship.MGLT }}
+                </p>
+                <p><strong>Consumables:</strong> {{ starship.consumables }}</p>
+                <p>
+                  <strong>Films:</strong>
+                  <span
+                    class="chip"
+                    *ngFor="let name of getName(starship.films)"
+                  >
+                    {{ name }}
+                  </span>
+                </p>
+                <p><strong>Pilots:</strong> {{ starship.pilots.length }}</p>
+              </nb-card-body>
+              <nb-card-footer>
+                <p>
+                  <strong>Date Edited:</strong>
+                  {{ starship.edited | date : "mediumDate" }}
+                </p>
+              </nb-card-footer>
+            </nb-card>
+          </nb-card-back>
+        </nb-flip-card>
+      </div>
+      <p>Found {{ totalItems }} Starships</p>
+      <div class="pagination-container">
+        <button (click)="previousPage()" [disabled]="currentPage === 1">
+          Previous
+        </button>
+
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

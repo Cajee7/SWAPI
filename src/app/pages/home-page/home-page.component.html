@@ -10,7 +10,7 @@
       <div class="col-md-6" *ngFor="let film of allFilmsData">
         <nb-flip-card [showToggleButton]="true">
           <nb-card-front>
-            <nb-card status="success">
+            <nb-card status="info">
               <nb-card-header>
                 Episode {{ film.episode_id }}: {{ film.title }}
                 <br />
@@ -19,10 +19,18 @@
               <nb-card-body>
                 <p><strong>Opening Crawl:</strong></p>
                 <p>{{ film.opening_crawl }}</p>
-                <p><strong>Characters:</strong> {{ film.characters.length }}</p>
                 <p>
-                  <strong>Url: </strong
-                  ><a [href]="film.url" target="_blank"> Url To Movie</a>
+                  <strong>Characters:</strong>
+                  <span
+                    class="chip"
+                    *ngFor="let name of getName(film.characters, 'character')"
+                  >
+                    {{ name }}
+                  </span>
+                </p>
+                <p>
+                  <strong>Url To Movie: </strong
+                  ><a [href]="film.url" target="_blank"> {{ film.title }}</a>
                 </p>
               </nb-card-body>
               <nb-card-footer>
@@ -32,7 +40,7 @@
             </nb-card>
           </nb-card-front>
           <nb-card-back>
-            <nb-card status="danger">
+            <nb-card status="info">
               <nb-card-header>
                 Episode {{ film.episode_id }}: {{ film.title }}
                 <br />
@@ -41,12 +49,24 @@
               <nb-card-body>
                 <p><strong>Species:</strong> {{ film.species?.length || 0 }}</p>
                 <p>
-                  <strong>StarShips:</strong> {{ film.starships?.length || 0 }}
+                  <strong>StarShips:</strong>
+                  <span
+                    class="chip"
+                    *ngFor="let ship of getName(film.starships, 'starship')"
+                    >{{ ship }}</span
+                  >
                 </p>
                 <p>
                   <strong>Vehicles:</strong> {{ film.vehicles?.length || 0 }}
                 </p>
-                <p><strong>Planets:</strong> {{ film.planets?.length || 0 }}</p>
+                <p>
+                  <strong>Planets:</strong>
+                  <span
+                    class="chip"
+                    *ngFor="let planet of getName(film.planets, 'planet')"
+                    >{{ planet }}</span
+                  >
+                </p>
                 <br />
               </nb-card-body>
               <nb-card-footer>
@@ -60,6 +80,17 @@
         </nb-flip-card>
       </div>
     </div>
-    <p>Found {{ allFilmsData.length }} films</p>
+    <p>Found {{ totalItems }} films</p>
+    <div class="pagination-container">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">
+        Previous
+      </button>
+
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+        Next
+      </button>
+    </div>
   </div>
 </div>
