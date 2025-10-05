@@ -1,15 +1,31 @@
 <nb-layout>
   <nb-layout-header fixed>
-    <button nbButton status="success" (click)="toggle()">
-      <nb-icon icon="menu-outline"></nb-icon>
-    </button>
+    <div class="header-container">
+      <button nbButton status="success" (click)="toggle()">
+        <nb-icon icon="menu-outline"></nb-icon>
+      </button>
+
+      <strong>SWAPI</strong>
+      <span>V1.0.0</span>
+
+      <span style="flex: 1"></span>
+      <img
+        src="assets/SWAPI.png"
+        alt="SWAPI Logo"
+        style="height: 50px; width: auto"
+      />
+    </div>
   </nb-layout-header>
 
-  <nb-sidebar><nb-menu [items]="menu"></nb-menu></nb-sidebar>
+  <nb-sidebar
+    style="transition: transform 0.3s ease-in-out, width 0.3s ease-in-out"
+  >
+    <nb-menu [items]="menu"></nb-menu>
+  </nb-sidebar>
 
   <nb-layout-column>
     <router-outlet></router-outlet>
   </nb-layout-column>
 
-  <nb-layout-footer fixed>Copyright @{{ year }} </nb-layout-footer>
+  <nb-layout-footer fixed>Copyright @{{ year }}</nb-layout-footer>
 </nb-layout>
