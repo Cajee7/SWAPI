@@ -29,6 +29,7 @@ Setup Instructions:
 
    Thereafter open: http://localhost:8080
 
+The application is live at: https://cajee7.github.io/SWAPI
 
 Archtecture:
 
